@@ -108,13 +108,31 @@ class NDD:
         similarity = (A / temp)
         return similarity
 
+    def EUC(self, x, y):
+        similarity = 0.0
+        for index in range(self.n):
+            temp = x[index] - y[index]
+            temp = temp * temp
+            similarity += temp
+        similarity = math.sqrt(similarity)
+        return similarity
+
+    def Manhattan(self, x, y):
+        similarity = 0.0
+        for index in range(self.n):
+            temp = x[index] - y[index]
+            similarity += math.fabs(temp)
+        return similarity
+
     def duplicate_detection(self):
 
         for i in range(self.Number_of_docs):
             similarity = 0.0
             for j in range(i + 1, self.Number_of_docs):
                 # similarity = self.PDSM(self.data[i], self.data[j])
-                similarity = self.cosine(self.data[i], self.data[j])
+                # similarity = self.cosine(self.data[i], self.data[j])
+                # similarity = self.Manhattan(self.data[i], self.data[j])
+                # similarity = self.EUC(self.data[i], self.data[j])
                 # similarity = self.jaccrad_coeff(self.data[i], self.data[j])
                 if similarity > self.threashold:
                     self.SimilarDocuments.append("%d, %d" % (i, j))
@@ -134,6 +152,7 @@ class NDD:
         print(recall)
         print(precision)
 
-
+# create a new instance of NDD
 instance = NDD()
-# instance.precision_recal()
+# call function for near duplicate detection
+instance.precision_recal()
