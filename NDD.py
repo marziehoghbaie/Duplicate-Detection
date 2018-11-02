@@ -58,27 +58,7 @@ class NDD:
         ]
         self.document_length = []
         self.threashold = 0.5  # the Average of similarity value used for comparision
-
-    def PDSM(self, x, y):
-        similarity = 0.0
-        A = B = absent = present = 0.0
-
-        for index in range(self.n):
-
-            A += min(x[index], y[index])
-            B += max(x[index], y[index])
-
-            if x[index] == y[index] == 0:
-                absent += 1
-
-            if x[index] != 0 and y[index] != 0:
-                present += 1
-
-        absent = self.n - absent - 1
-        present += 1
-        similarity = (present / absent) * (A / B)
-        return similarity
-
+        
     def jaccrad_coeff(self, x, y):
         similarity = 0.0
         A = 0.0
@@ -129,8 +109,7 @@ class NDD:
         for i in range(self.Number_of_docs):
             similarity = 0.0
             for j in range(i + 1, self.Number_of_docs):
-                # similarity = self.PDSM(self.data[i], self.data[j])
-                # similarity = self.cosine(self.data[i], self.data[j])
+                similarity = self.cosine(self.data[i], self.data[j])
                 # similarity = self.Manhattan(self.data[i], self.data[j])
                 # similarity = self.EUC(self.data[i], self.data[j])
                 # similarity = self.jaccrad_coeff(self.data[i], self.data[j])
